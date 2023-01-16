@@ -1,6 +1,6 @@
 {
   "name": "html-to-image",
-  "version": "1.11.4",
+  "version": "2.0.0",
   "description": "Generates an image from a DOM node using HTML5 canvas and SVG.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -34,7 +34,7 @@
     "test:debug": "karma start --browsers=Chrome --single-run=false --auto-watch --debug",
     "coveralls": "cat ./test/coverage/lcov.info | coveralls",
     "pretest": "rimraf ./test/coverage",
-    "prepare": "is-ci || husky install .husky"
+    "prepare": "concurrently \"npm run build:esm\" \"npm run build:cjs\""
   },
   "lint-staged": {
     "**/*.{js,jsx,tsx,ts,less,md,json}": [
@@ -99,5 +99,8 @@
   "bugs": {
     "url": "https://github.com/bubkoo/html-to-image/issues"
   },
-  "homepage": "https://github.com/bubkoo/html-to-image#readme"
+  "homepage": "https://github.com/bubkoo/html-to-image#readme",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
 }
