@@ -147,7 +147,7 @@ function cloneSelectValue<T extends HTMLElement>(nativeNode: T, clonedNode: T) {
 }
 
 function decorate<T extends HTMLElement>(nativeNode: T, clonedNode: T): T {
-  if (clonedNode instanceof Element) {
+  if (clonedNode.nodeType === 1) {
     cloneCSSStyle(nativeNode, clonedNode)
     clonePseudoElements(nativeNode, clonedNode)
     cloneInputValue(nativeNode, clonedNode)
