@@ -70,7 +70,7 @@ export async function embedImages<T extends HTMLElement>(
   clonedNode: T,
   options: Options,
 ) {
-  if (clonedNode instanceof Element) {
+  if (clonedNode.nodeType === 1) {
     await embedBackground(clonedNode, options)
     await embedImageNode(clonedNode, options)
     await embedChildren(clonedNode, options)
