@@ -58,5 +58,5 @@ export const cloneElementWithMediaQuery = async (
   if (html2ImageOptions.onClone) {
     html2ImageOptions.onClone(clonedElement)
   }
-  return clonedElement
+  return {clonedElement, iframe}
 }
