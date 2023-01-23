@@ -43,7 +43,7 @@ export const cloneElementWithMediaQuery = async (
   const windowWidth = html2ImageOptions.windowWidth || 1280
   const iframe = createIframe(windowWidth)
   const elementContainer = document.createElement('div')
-  const elCopy = await cloneNode(el, {}, true)
+  const elCopy = await cloneNode(el, {}, true, true)
   elementContainer.appendChild(elCopy as HTMLElement)
 
   const iframeDoc = iframe?.contentWindow?.document as Document

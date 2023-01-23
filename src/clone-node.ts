@@ -146,9 +146,13 @@ function cloneSelectValue<T extends HTMLElement>(nativeNode: T, clonedNode: T) {
   }
 }
 
-function decorate<T extends HTMLElement>(nativeNode: T, clonedNode: T): T {
+function decorate<T extends HTMLElement>(
+  nativeNode: T,
+  clonedNode: T,
+  areStylesExcluded?: boolean,
+): T {
   if (clonedNode.nodeType === 1) {
-    cloneCSSStyle(nativeNode, clonedNode)
+    !areStylesExcluded && cloneCSSStyle(nativeNode, clonedNode)
     clonePseudoElements(nativeNode, clonedNode)
     cloneInputValue(nativeNode, clonedNode)
     cloneSelectValue(nativeNode, clonedNode)
@@ -208,6 +212,7 @@ export async function cloneNode<T extends HTMLElement>(
   node: T,
   options: Options,
   isRoot?: boolean,
+  areStylesExcluded?: boolean,
 ): Promise<T | null> {
   if (!isRoot && options.filter && !options.filter(node)) {
     return null
@@ -216,6 +221,6 @@ export async function cloneNode<T extends HTMLElement>(
   return Promise.resolve(node)
     .then((clonedNode) => cloneSingleNode(clonedNode, options) as Promise<T>)
     .then((clonedNode) => cloneChildren(node, clonedNode, options))
-    .then((clonedNode) => decorate(node, clonedNode))
+    .then((clonedNode) => decorate(node, clonedNode, areStylesExcluded))
     .then((clonedNode) => ensureSVGSymbols(clonedNode, options))
 }
