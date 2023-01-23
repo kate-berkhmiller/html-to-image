@@ -20,9 +20,19 @@ export interface Options {
    */
   canvasHeight?: number
   /**
+   * Window width to use when rendering Element, which may affect things like Media queries.
+   */
+  windowWidth?: number
+  /**
    * An object whose properties to be copied to node's style before rendering.
    */
   style?: Partial<CSSStyleDeclaration>
+  /**
+  Callback function which is called when the Document has been cloned for rendering,
+  * can be used to modify the contents that will be rendered without affecting
+  * the original source document.
+   */
+  onClone?: (domNode: HTMLElement) => void
   /**
    * A function taking DOM node as argument. Should return `true` if passed
    * node should be included in the output. Excluding node means excluding

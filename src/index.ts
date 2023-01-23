@@ -11,6 +11,7 @@ import {
   nodeToDataURL,
   checkCanvasDimensions,
 } from './util'
+import { cloneElementWithMediaQuery } from './clone-node-with-mediaquery'
 
 export async function toSvg<T extends HTMLElement>(
   node: T,
@@ -72,7 +73,11 @@ export async function toPng<T extends HTMLElement>(
   node: T,
   options: Options = {},
 ): Promise<string> {
-  const canvas = await toCanvas(node, options)
+  let clonedNode = node
+  if (options.windowWidth) {
+    clonedNode = (await cloneElementWithMediaQuery(node, options)) as T
+  }
+  const canvas = await toCanvas(clonedNode, options)
   return canvas.toDataURL()
 }
 
