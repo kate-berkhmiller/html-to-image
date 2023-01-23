@@ -71,6 +71,7 @@ async function cloneChildren<T extends HTMLElement>(
   nativeNode: T,
   clonedNode: T,
   options: Options,
+  areStylesExcluded?: boolean,
 ): Promise<T> {
   const children =
     isSlotElement(nativeNode) && nativeNode.assignedNodes
@@ -84,7 +85,7 @@ async function cloneChildren<T extends HTMLElement>(
   await children.reduce(
     (deferred, child) =>
       deferred
-        .then(() => cloneNode(child, options))
+        .then(() => cloneNode(child, options, false, areStylesExcluded))
         .then((clonedChild: HTMLElement | null) => {
           if (clonedChild) {
             clonedNode.appendChild(clonedChild)
@@ -220,7 +221,7 @@ export async function cloneNode<T extends HTMLElement>(
 
   return Promise.resolve(node)
     .then((clonedNode) => cloneSingleNode(clonedNode, options) as Promise<T>)
-    .then((clonedNode) => cloneChildren(node, clonedNode, options))
+    .then((clonedNode) => cloneChildren(node, clonedNode, options, areStylesExcluded))
     .then((clonedNode) => decorate(node, clonedNode, areStylesExcluded))
     .then((clonedNode) => ensureSVGSymbols(clonedNode, options))
 }
