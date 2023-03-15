@@ -77,11 +77,14 @@ export async function toPng<T extends HTMLElement>(
   let iframe: HTMLIFrameElement | null = null
   if (options.windowWidth) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    ({ clonedElement, iframe } = (await cloneElementWithMediaQuery(node, options)))
+    // @ts-ignore
+    ;({ clonedElement, iframe } = await cloneElementWithMediaQuery(
+      node,
+      options,
+    ))
   }
   const canvas = await toCanvas(clonedElement, options)
-  iframe && iframe.remove();
+  iframe && iframe.remove()
   return canvas.toDataURL()
 }
 

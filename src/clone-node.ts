@@ -221,7 +221,9 @@ export async function cloneNode<T extends HTMLElement>(
 
   return Promise.resolve(node)
     .then((clonedNode) => cloneSingleNode(clonedNode, options) as Promise<T>)
-    .then((clonedNode) => cloneChildren(node, clonedNode, options, areStylesExcluded))
+    .then((clonedNode) =>
+      cloneChildren(node, clonedNode, options, areStylesExcluded),
+    )
     .then((clonedNode) => decorate(node, clonedNode, areStylesExcluded))
     .then((clonedNode) => ensureSVGSymbols(clonedNode, options))
 }

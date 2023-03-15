@@ -16,12 +16,14 @@ export const createIframe = (windowWidth: number) => {
 
 export const cloneDocumentStylesIntoIframe = (iframe: HTMLIFrameElement) => {
   const documentStyles = [...Array.from(document.styleSheets)]
+    // eslint-disable-next-line
     .map((styleSheet) => {
       try {
         return [...Array.from(styleSheet.cssRules)]
           .map((rule) => rule.cssText)
           .join('')
       } catch (e) {
+        // eslint-disable-next-line
         console.log(
           'Access to stylesheet %s is denied. Ignoring...',
           styleSheet.href,
@@ -58,5 +60,5 @@ export const cloneElementWithMediaQuery = async (
   if (html2ImageOptions.onClone) {
     html2ImageOptions.onClone(clonedElement)
   }
-  return {clonedElement, iframe}
+  return { clonedElement, iframe }
 }
